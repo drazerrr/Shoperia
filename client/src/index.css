@@ -215,6 +215,28 @@ h1 {
 }
 
 
+/* Alert Type */
+
+.alert {
+  margin: 20px auto;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.success {
+  padding: 5px;
+  background-color: green;
+  color: rgb(0, 255, 13);
+}
+
+.danger {
+  padding: 5px;
+  background-color: rgb(73, 9, 9);
+  color: red;
+}
+
 
 
 

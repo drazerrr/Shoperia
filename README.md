@@ -14,3 +14,6 @@ Use A FakeStoreApi in homepage
 # create register/login page
 
 # create server /jobify folder
+
+/* setup login and logout user 
+ 
