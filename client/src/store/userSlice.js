@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
+let user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-    name: "",
-    email: "",
-    userLocation: "",
+    name: user ? user.name : "",
+    email: user ? user.email : "",
+    userLocation: user ? user.location : "",
     alertType: "",
     alertMessage: "",
     isLoading: false,
@@ -45,7 +45,6 @@ export default userSlice.reducer;
     return async function userApi(dispatch, getState) {
         dispatch(remove(true))
         const user = await axios.post('/api/v1/auth/register', currentUser);
-        console.log(user);
         if(user.data.err) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: user.data.err})
         };
@@ -55,6 +54,7 @@ export default userSlice.reducer;
         if(user.data.errors && user.data.errors.password.kind === "minlength") {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Password length should be 6 letter long'})
         }
+        localStorage.setItem("user", JSON.stringify(user.data))
 
         return clearAction(dispatch, {...user.data, alertType:'success', alertMessage: 'Register successful redirecting...'})
 
@@ -70,6 +70,8 @@ function userLogin(currentUser) {
         if(user.data.err) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: user.data.err})
         };
+
+        localStorage.setItem("user", JSON.stringify(user.data))
         
         return clearAction(dispatch, {...user.data, alertType:'success', alertMessage: 'Login successful redirecting...'})
 
@@ -81,7 +83,7 @@ function clearAction(dispatch, value){
     dispatch(add(value))
     setTimeout(() => {
         dispatch(remove(false))
-    }, 3000)
+    }, 1000)
 };
 
 export {userFetch, userLogin}

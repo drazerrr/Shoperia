@@ -1,27 +1,9 @@
-/* for run install all dependencies  for both client and server
-set .env file MONGO_URI=<mongo uri>
+import NavBar from "../components/NavBar"
+import { useDispatch, useSelector } from "react-redux"
+import { removeItem, incItem, decItem } from "../store/cart";
+import {AiOutlinePlusSquare, AiOutlineMinusSquare, AiFillDelete} from 'react-icons/ai'
 
-
-# Create a Navbar 
-
-/* This Project is not complete yet */
-# Creating Register Page
-/* Not complete yet */
-
-# create homePage 
-Use A FakeStoreApi in homepage
-
-# create register/login page
-
-# create server /jobify folder
-
-/* setup login and logout user 
-
-# setup cart Add Cart/ remove cart
-
-creating a Cart.js file in page 
-
- const Cart = () => {
+const Cart = () => {
     let cartItem = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const handleRemove = (e) => {
@@ -55,7 +37,4 @@ creating a Cart.js file in page
   )
 }
 
- # also create a reducer for cart
- cart.js in store 
-
- 
+export default Cart

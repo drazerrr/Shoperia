@@ -4,12 +4,14 @@ import { useState } from "react"
 import { Link, Navigate } from 'react-router-dom'
 import { userFetch } from "../store/userSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 
 const initialState = {
   name: '',
   email: '',
   password: '',
-}
+  showPassword: false,
+};
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
@@ -28,6 +30,10 @@ const Register = () => {
       return <Navigate to='/' />
     }
 
+    const showPass = () => {
+      setValues({...values, showPassword: !values.showPassword})
+    }
+
   return (
     <section className="form-container" onSubmit={onSubmit}>
          <form className="form">
@@ -36,8 +42,8 @@ const Register = () => {
           <div className={`alert ${data.alertType}`} >{data.alertMessage}</div>
           <FormRow type="text" name="name" handleChange={handleChange} value={values.name}/>
           <FormRow type="email" name="email" handleChange={handleChange} value={values.email}/>
-          <FormRow type="password" name="password" handleChange={handleChange} value={values.password}/>
-          <button className="btn" type="submit" disabled={data.isLoading}>Submit</button>
+          <FormRow type={values.showPassword ? "text" : "password"} name="password" handleChange={handleChange} value={values.password}/><div className="hide-show"><input className="showpass" type="checkbox" value={values.showPassword} onClick={showPass}/> Show password</div >
+          <button className="btn button" type="submit" disabled={data.isLoading}>Submit</button>
           <div className="member">Already a member? <Link className="option" to='/Login'>Login</Link></div>
          </form>
     </section>

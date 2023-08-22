@@ -1,10 +1,16 @@
 import NavBar from "../components/NavBar"
 import { useState, useEffect } from 'react';
-import { BsCart4 } from 'react-icons/bs'
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/cart";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
+
+  const handleClick = (e) => {
+    dispatch(addItem(e));
+  }
   useEffect(() => {
     const value = async () => {
       let api = await fetch('https://fakestoreapi.com/products');
@@ -12,7 +18,8 @@ const Home = () => {
       setProducts(data);
     };
     value();
-  }, [])
+  }, []);
+
   return (
     <div className="product-container">
       <NavBar />
@@ -22,7 +29,7 @@ const Home = () => {
             <img src={item.image} alt="product"/>
             <h4>{item.title}</h4>
             <h4>${item.price}</h4>
-            <button className="btn"><BsCart4/> Add to Cart</button>
+            <button onClick={() => handleClick(item)} className="btn button"> Add to Cart</button>
             </div>
         )
       })}

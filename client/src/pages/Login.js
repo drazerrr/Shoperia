@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 const initialState = {
   email: '',
   password: '',
+  showPassword: false,
 }
 
 const Login = () => {
@@ -26,6 +27,9 @@ const Login = () => {
   if(data.name !== "" && !data.isLoading) {
     return <Navigate to='/' />
   }
+  const showPass = () => {
+    setValues({...values, showPassword: !values.showPassword})
+  }
 
 
   return (
@@ -35,8 +39,9 @@ const Login = () => {
           <h3>Login</h3>
           <div className={`alert ${data.alertType}`} >{data.alertMessage}</div>
           <FormRow type="email" name="email"  handleChange={handleChange} value={values.email}/>
-          <FormRow type="password" name="password" handleChange={handleChange} value={values.password}/>
-          <button className="btn" type="submit" disabled={data.isLoading}>Submit</button>
+          <FormRow type={values.showPassword ? "text" : "password"} name="password" handleChange={handleChange} value={values.password}/>
+          <div className="hide-show"><input className="showpass" type="checkbox" value={values.showPassword} onClick={showPass}/> Show password</div >
+          <button className="btn button" type="submit" disabled={data.isLoading}>Submit</button>
           <div className="member">Not register yet? <Link className="option" to='/register'>Register</Link></div>
          </form>
     </section>
