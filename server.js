@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './db/connection.js';
 import authRouter from './routes/authRoutes.js'
+import cartRouter from './routes/cartRoutes.js'
 dotenv.config();
 
 // middlewares
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/cart', cartRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandleMiddleware);

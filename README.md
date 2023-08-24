@@ -59,3 +59,92 @@ creating a Cart.js file in page
  cart.js in store 
 
  
+ # SETUP a cartRoutes.js and cartcontroller in backend 
+
+ cartRoutes-
+ import express from 'express';
+import { addItem, decQuantity, incQuantity, removeItem } from '../controllers/cartController.js';
+
+const router = express.Router();
+
+router.route('/addcart').put(addItem)
+router.route('/removecart').put(removeItem)
+router.route('/increaseqty').put(incQuantity);
+router.route('/decreaseqty').put(decQuantity);
+
+
+export default router
+
+cartController-
+import User from '../modules/User.js';
+
+
+const addItem = async (req, res) => {
+    const {email, item} = req.body;
+    
+    let filter = {email};
+    let insert = {$push: {cart: item}};
+
+    try {
+        const carts = await User.findOne({email, 'cart.id': item.id})
+        if (carts) {
+            const value = await User.findOneAndUpdate({email, 'cart.id': item.id}, {$inc: {"cart.$.qty": 1 }})
+            res.json(value);
+        } else {
+        const value = await User.findOneAndUpdate(filter, insert);
+        res.json(value);
+        }
+
+    } catch (err) {
+        console.log(err)
+        res.json({err:"Something went wrong..."})
+    }
+};
+
+const removeItem = async (req, res) => {
+    const {email, itemId} = req.body;
+    
+    let filter = {email};
+    let remove = {$pull: {cart: {id : itemId }}};
+
+    try {
+        const value = await User.findOneAndUpdate(filter, remove);
+        console.log(value);
+        res.json(value);
+
+    } catch (err) {
+        console.log(err)
+    }
+
+};
+
+
+const incQuantity = async (req, res) => {
+    const {email, itemId} = req.body;
+
+    let filter = {email, 'cart.id': itemId }
+    try {
+        const value = await User.findOneAndUpdate(filter, {$inc : {"cart.$.qty" : 1}});
+        console.log(value);
+        res.json(value);
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const decQuantity = async (req, res) => {
+    const {email, itemId} = req.body;
+    let filter = {email, 'cart.id': itemId }
+    try{
+        const dec = await User.findOneAndUpdate(filter, {$inc : {"cart.$.qty" : -1}});
+        res.json(dec)
+        const del = await User.findOneAndUpdate({email}, {$pull: {cart: {id: itemId, qty: 0}}})
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export {addItem, removeItem, incQuantity, decQuantity}
+
+after setup backend to front-end cart

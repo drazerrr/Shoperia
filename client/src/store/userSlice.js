@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addItemFromDB } from "./cart";
 import axios from "axios";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -71,7 +72,9 @@ function userLogin(currentUser) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: user.data.err})
         };
 
-        localStorage.setItem("user", JSON.stringify(user.data))
+        localStorage.setItem("user", JSON.stringify(user.data));
+        localStorage.setItem("cart", JSON.stringify(user.data.cart));
+        dispatch(addItemFromDB(user.data.cart));
         
         return clearAction(dispatch, {...user.data, alertType:'success', alertMessage: 'Login successful redirecting...'})
 

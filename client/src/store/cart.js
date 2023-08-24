@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-
+const cartItems = JSON.parse(localStorage.getItem("cart"));
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart: [],
+        cart: cartItems ? [...cartItems] : [],
     },
     reducers: {
+        addItemFromDB(state, action) {
+            state.cart = [...action.payload];
+        },
         addItem(state, action) {
             
             let prodId = action.payload.id;
@@ -23,10 +27,12 @@ const cartSlice = createSlice({
                     const data = {...action.payload, qty: 1};
                     state.cart.push(data)
                 }
+                localStorage.setItem("cart", JSON.stringify(state.cart));
         },
 
         removeItem(state, action) {
             state.cart = state.cart.filter((item) => item.id !== action.payload)
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
 
         incItem(state, action) {
@@ -37,6 +43,7 @@ const cartSlice = createSlice({
                 }
                 return null;
             })
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
         decItem(state, action) {
             let tog = false;
@@ -50,11 +57,83 @@ const cartSlice = createSlice({
             if(!tog) {
                 state.cart = state.cart.filter((item) => item.id !== action.payload)
             }
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         }
     }
 });
 
 
-export const {addItem, removeItem, incItem, decItem} = cartSlice.actions;
+export const {addItem, removeItem, incItem, decItem, addItemFromDB} = cartSlice.actions;
 
 export default cartSlice.reducer;
+
+
+// Thunk
+
+function addItemDB(cartItem) {
+    return async function addAPI(dispatch, getState) {
+        dispatch(addItem(cartItem));
+        const userDetail = getState().user;
+        const newItem = {
+            email: userDetail.email,
+            item: {...cartItem, qty: 1}
+        }
+        const cartSave = await axios.put('/api/v1/cart/addcart', newItem)
+        if(cartSave.err) {
+            console.log(cartSave.err);
+        }
+    }
+};
+
+function removeItemDB(cartItem) {
+    return async function removeAPI(dispatch, getState) {
+        dispatch(removeItem(cartItem));
+        const userDetail = getState().user;
+        const newItem = {
+            email: userDetail.email,
+            itemId: cartItem
+        }
+        const cartSave = await axios.put('/api/v1/cart/removecart', newItem)
+        console.log(cartSave)
+        console.log(newItem)
+        if(cartSave.err) {
+            console.log(cartSave.err);
+        }
+    }
+};
+
+function incItemQtyDB(cartItem) {
+    return async function incAPI(dispatch, getState) {
+        dispatch(incItem(cartItem));
+        const userDetail = getState().user;
+        const newItem = {
+            email: userDetail.email,
+            itemId: cartItem
+        }
+        const cartSave = await axios.put('/api/v1/cart/increaseqty', newItem)
+        console.log(cartSave)
+        console.log(newItem)
+        if(cartSave.err) {
+            console.log(cartSave.err);
+        }
+    }
+};
+
+function decItemDB(cartItem) {
+    return async function decAPI(dispatch, getState) {
+        dispatch(decItem(cartItem));
+        const userDetail = getState().user;
+        const newItem = {
+            email: userDetail.email,
+            itemId: cartItem
+        }
+        const cartSave = await axios.put('/api/v1/cart/decreaseqty', newItem)
+        console.log(cartSave)
+        console.log(newItem)
+        if(cartSave.err) {
+            console.log(cartSave.err);
+        }
+    }
+}
+
+export {addItemDB, removeItemDB, incItemQtyDB, decItemDB}

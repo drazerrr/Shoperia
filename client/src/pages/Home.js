@@ -1,7 +1,7 @@
 import NavBar from "../components/NavBar"
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { addItem } from "../store/cart";
+import { addItemDB } from "../store/cart";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -9,7 +9,7 @@ const Home = () => {
 
 
   const handleClick = (e) => {
-    dispatch(addItem(e));
+    dispatch(addItemDB(e));
   }
   useEffect(() => {
     const value = async () => {

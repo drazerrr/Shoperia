@@ -23,7 +23,6 @@ const register = async (req, res) => {
     };
 
     const logData = await User.findOne({email});
-    console.log(logData)
     if(logData) {
         if(logData.password === password) {
             return res.json(logData)

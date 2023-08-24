@@ -21,6 +21,7 @@ const NavBar = () => {
 const logout = () => {
   dispatch(add({name: "", email: "", location: "", alertText: "", alertMessage: ""}));
   localStorage.removeItem("user");
+  localStorage.removeItem("cart");
 }
   const data = useSelector((state) => state.user)
   const cartItem = useSelector((state) => state.cart)

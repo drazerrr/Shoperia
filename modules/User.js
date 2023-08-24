@@ -20,7 +20,8 @@ const UserSchema = new mongoose.Schema ({
         type: String,
         minLength: 4,
         default: 'my city'
-    }
+    },
+    cart: [],
 });
 
 

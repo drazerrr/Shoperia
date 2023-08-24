@@ -1,20 +1,20 @@
 import NavBar from "../components/NavBar"
 import { useDispatch, useSelector } from "react-redux"
-import { removeItem, incItem, decItem } from "../store/cart";
+import { removeItemDB, incItemQtyDB, decItemDB } from "../store/cart";
 import {AiOutlinePlusSquare, AiOutlineMinusSquare, AiFillDelete} from 'react-icons/ai'
 
 const Cart = () => {
     let cartItem = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const handleRemove = (e) => {
-        dispatch(removeItem(e));
+        dispatch(removeItemDB(e));
     }
 
     const increaseItem = (e) => {
-      dispatch(incItem(e))
+      dispatch(incItemQtyDB(e))
     }
     const decreaseItem = (e) => {
-      dispatch(decItem(e))
+      dispatch(decItemDB(e))
     }
 
   return (
@@ -23,7 +23,7 @@ const Cart = () => {
         {cartItem.cart.length === 0 ? <h1>No items available...</h1>: <h1>SubTotal:</h1>}
         {cartItem.cart.map((item) => {
         return (
-          <div className="products">
+          <div className="products" key={item.id}>
             <img src={item.image} alt="product"/>
             <h4>{item.title}</h4>
             <h4>${item.price}</h4>
