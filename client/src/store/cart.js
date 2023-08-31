@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const cartItems = JSON.parse(localStorage.getItem("cart"));
+let cartItem = JSON.parse(localStorage.getItem("cart"));
+console.log(cartItem)
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart: cartItems ? [...cartItems] : [],
+        cart: cartItem ? [...cartItem] : [],
     },
     reducers: {
         addItemFromDB(state, action) {
@@ -27,12 +29,12 @@ const cartSlice = createSlice({
                     const data = {...action.payload, qty: 1};
                     state.cart.push(data)
                 }
-                localStorage.setItem("cart", JSON.stringify(state.cart));
+                localStorageCart(state.cart);
         },
 
         removeItem(state, action) {
-            state.cart = state.cart.filter((item) => item.id !== action.payload)
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+            state.cart = state.cart.filter((item) => item.id !== action.payload);
+            localStorageCart(state.cart);
         },
 
         incItem(state, action) {
@@ -43,7 +45,7 @@ const cartSlice = createSlice({
                 }
                 return null;
             })
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+            localStorageCart(state.cart);
         },
         decItem(state, action) {
             let tog = false;
@@ -57,8 +59,9 @@ const cartSlice = createSlice({
             if(!tog) {
                 state.cart = state.cart.filter((item) => item.id !== action.payload)
             }
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+            localStorageCart(state.cart);
         }
+        
     }
 });
 
@@ -136,4 +139,11 @@ function decItemDB(cartItem) {
     }
 }
 
-export {addItemDB, removeItemDB, incItemQtyDB, decItemDB}
+function localStorageCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart))
+}
+function localStorageCartRemove() {
+    localStorage.removeItem("cart");
+}
+
+export {addItemDB, removeItemDB, incItemQtyDB, decItemDB, localStorageCartRemove}

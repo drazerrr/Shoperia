@@ -8,7 +8,8 @@ import { BsTelephone } from 'react-icons/bs'
 import { TbLogout } from 'react-icons/tb'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { add } from '../store/userSlice'
+import { add, localStorageDataRemove } from '../store/userSlice'
+import { localStorageCartRemove } from '../store/cart'
 import { useDispatch } from 'react-redux'
 import { LiaCartPlusSolid } from 'react-icons/lia'
 const NavBar = () => {
@@ -19,9 +20,9 @@ const NavBar = () => {
   }
 
 const logout = () => {
+  localStorageDataRemove();
+  localStorageCartRemove();
   dispatch(add({name: "", email: "", location: "", alertText: "", alertMessage: ""}));
-  localStorage.removeItem("user");
-  localStorage.removeItem("cart");
 }
   const data = useSelector((state) => state.user)
   const cartItem = useSelector((state) => state.cart)
@@ -32,7 +33,7 @@ const logout = () => {
      <div className='ham' onClick={toggleMenu}><GiHamburgerMenu /></div>
       <ul className={toggle ? 'nav-links' : 'nav-links nav-visible'}>
         {data.name === "" ? <NavLink onClick={toggleMenu} className='link' to='/login'><IoIosLogIn className='icon'/> Register/Login</NavLink> : <NavLink onClick={toggleMenu} className='link' to='/login'><BiSolidUserCircle className='icon'/> Welcome {data.name.split(" ")[0]}</NavLink>}
-        <NavLink onClick={toggleMenu} className='link' to='/cart'><LiaCartPlusSolid className='icon' /> ({cartItem.cart.length})</NavLink>
+        <NavLink onClick={toggleMenu} className='link' to='/cart'><LiaCartPlusSolid className='icon' /> ({cartItem.cart.reduce((accum, item) => {return accum + item.qty}, 0)})</NavLink>
         <NavLink onClick={toggleMenu} className='link' to='/about'><SiAboutdotme className='icon'/> About</NavLink>
         <NavLink onClick={toggleMenu} className='link' to='/contact'><BsTelephone className='icon'/> Contact Us</NavLink>
         {data.name !== "" && <NavLink onClick={logout} className='link' ><TbLogout className='icon'/> Logout</NavLink>}

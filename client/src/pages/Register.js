@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link, Navigate } from 'react-router-dom'
 import { userFetch } from "../store/userSlice"
 import { useDispatch, useSelector } from "react-redux"
-import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
+import { Helmet } from "react-helmet"
 
 const initialState = {
   name: '',
@@ -36,6 +36,11 @@ const Register = () => {
 
   return (
     <section className="form-container" onSubmit={onSubmit}>
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Register - Shoperia E-Commerce Web Page</title>
+                <link rel="canonical" href="http://localhost:3000" />
+            </Helmet>
          <form className="form">
           <Logo />
           <h3>Register</h3>

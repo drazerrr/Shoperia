@@ -52,11 +52,12 @@ export default userSlice.reducer;
         if(user.data.code && user.data.code === 11000) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Email already Exists'})
         }
-        if(user.data.errors && user.data.errors.password.kind === "minlength") {
+        if(currentUser.password.length < 6) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Password length should be 6 letter long'})
         }
-        localStorage.setItem("user", JSON.stringify(user.data))
-
+        localStorageData(user.data)
+        dispatch(addItemFromDB(user.data.cart));
+        
         return clearAction(dispatch, {...user.data, alertType:'success', alertMessage: 'Register successful redirecting...'})
 
     }
@@ -71,10 +72,10 @@ function userLogin(currentUser) {
         if(user.data.err) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: user.data.err})
         };
-
-        localStorage.setItem("user", JSON.stringify(user.data));
-        localStorage.setItem("cart", JSON.stringify(user.data.cart));
+        localStorageData(user.data)
+        
         dispatch(addItemFromDB(user.data.cart));
+        localStorage.setItem("cart", JSON.stringify(user.data.cart))
         
         return clearAction(dispatch, {...user.data, alertType:'success', alertMessage: 'Login successful redirecting...'})
 
@@ -89,4 +90,13 @@ function clearAction(dispatch, value){
     }, 1000)
 };
 
-export {userFetch, userLogin}
+function localStorageData(user) {
+    localStorage.setItem("user", JSON.stringify(user));
+
+}
+function localStorageDataRemove() {
+    localStorage.removeItem("user");
+    user = null;
+}
+
+export {userFetch, userLogin, localStorageDataRemove}

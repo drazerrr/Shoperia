@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Link, Navigate } from 'react-router-dom'
 import { userLogin } from "../store/userSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { Helmet } from "react-helmet"
 
 const initialState = {
   email: '',
@@ -34,6 +35,11 @@ const Login = () => {
 
   return (
     <section className="form-container">
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>Login Page - Shoperia E-Commerce Web Page</title>
+                <link rel="canonical" href="http://localhost:3000/login" />
+            </Helmet>
          <form className="form" onSubmit={onSubmit}>
           <Logo />
           <h3>Login</h3>

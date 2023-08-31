@@ -34,6 +34,10 @@ h1 {
 }
 .nav-bar {
   display: flex;
+  position: fixed;
+  margin-top: 0.2px;
+  left: 0;
+  top: 0;
   justify-content: space-between;
   width: 100vw;
   height: 60px;
@@ -132,7 +136,7 @@ h1 {
     width: 10px;
     height: 200px;
    flex-direction: column;
-   position: absolute;
+   position: fixed;
    top: 80px;
    right: 10px;
    background-color: #011936;
@@ -179,8 +183,8 @@ h1 {
 
 .product-container {
   width: calc(100vw - 10vw);
-  margin: 0 auto;
-  height: 100vh;
+  margin: 70px  auto;
+  padding-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -207,17 +211,27 @@ h1 {
 }
 .products button {
   display: block;
+  width: 100px;
+  height: 25px;
   margin: 10px auto;
   padding: 3px;
   background-color: #FFBF00;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 .products h4 {
   text-align: center;
   padding: 10px;
   font-family: 'Roboto Mono', monospace;
+}
+.products:hover img {
+  cursor: pointer;
+  height: 95px;
+}
+.description {
+  font-size: 12px;
+  text-align: center;
 }
 
 
@@ -253,6 +267,39 @@ h1 {
 .button:hover {
   cursor: pointer;
   opacity: 0.8;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .10);
+}
+
+/* Cart */
+
+.cart-container {
+  width: 100vw;
+  height: calc(100vh - 60px);
+  margin: 70px auto;
+}
+
+.click {
+  transform: translatey(10%);
+}
+
+/* pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+}
+.page-num {
+  display: inline-block;
+  transform: translatey(-2px);
+  cursor: pointer;
+  margin: 0 10px;
+  color: #338bf7;
+}
+.page-col {
+  color: red;
+}
+.disabled {
+  visibility: hidden;
 }
 
 

@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import User from '../modules/User.js'
+import  bcrypt  from 'bcrypt'
+dotenv.config();
 
 
 const register = async (req, res) => {
@@ -7,8 +10,9 @@ const register = async (req, res) => {
        return res.json({err: 'Please provide all values'})
     };
     try {
-    const value = await User.create({name, email, password});
-    console.log(value);
+        const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    const value = await User.create({name, email, password: hash});
     res.json(value);
     } catch(err) {
         res.json(err)
@@ -24,7 +28,7 @@ const register = async (req, res) => {
 
     const logData = await User.findOne({email});
     if(logData) {
-        if(logData.password === password) {
+        if(bcrypt.compareSync(password, logData.password)) {
             return res.json(logData)
         } else {
             return res.json({err: 'Invalid credential'})

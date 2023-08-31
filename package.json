@@ -1,7 +1,8 @@
 {
-  "name": "e-commerce",
+  "name": "Shoperia",,
+  "Author": "Anurag Dwivedi"
   "version": "1.0.0",
-  "description": "",
+  "description": "E-Commerce web app Project",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -14,10 +15,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "concurrently": "^8.2.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.4.2",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "react-helmet": "^6.1.0"
   }
 }

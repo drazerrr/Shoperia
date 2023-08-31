@@ -148,3 +148,6 @@ const decQuantity = async (req, res) => {
 export {addItem, removeItem, incQuantity, decQuantity}
 
 after setup backend to front-end cart
+
+# Use Bcrypt for encription password
+-npm install bcrypt --save dev 
