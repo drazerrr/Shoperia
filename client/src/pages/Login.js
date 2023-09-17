@@ -5,6 +5,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { userLogin } from "../store/userSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Helmet } from "react-helmet"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const initialState = {
   email: '',
@@ -31,6 +33,30 @@ const Login = () => {
   const showPass = () => {
     setValues({...values, showPassword: !values.showPassword})
   }
+  if(data.isLoading && data.alertType === 'danger') {
+    toast.error(data.alertMessage, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+  }
+  if(data.isLoading && data.alertType === 'success') {
+    toast.success(data.alertMessage, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+  }
 
 
   return (
@@ -43,13 +69,22 @@ const Login = () => {
          <form className="form" onSubmit={onSubmit}>
           <Logo />
           <h3>Login</h3>
-          <div className={`alert ${data.alertType}`} >{data.alertMessage}</div>
           <FormRow type="email" name="email"  handleChange={handleChange} value={values.email}/>
           <FormRow type={values.showPassword ? "text" : "password"} name="password" handleChange={handleChange} value={values.password}/>
           <div className="hide-show"><input className="showpass" type="checkbox" value={values.showPassword} onClick={showPass}/> Show password</div >
           <button className="btn button" type="submit" disabled={data.isLoading}>Submit</button>
           <div className="member">Not register yet? <Link className="option" to='/register'>Register</Link></div>
          </form>
+         <ToastContainer position="top-center"
+autoClose={1000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored" />
     </section>
   )
 }

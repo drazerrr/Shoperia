@@ -19,7 +19,7 @@ const Cart = () => {
     }
 
   return (
-    <div>
+    <div className="cart">
       <Helmet>
                 <meta charSet="utf-8" />
                 <title>Cart - Shoperia E-Commerce Web Page</title>
@@ -27,18 +27,30 @@ const Cart = () => {
             </Helmet>
         <NavBar/>
         <div className="cart-container">
-        {cartItem.cart.length === 0 ? <h1>No items available...</h1>: <h1>SubTotal: ${cartItem.cart.reduce(function(accumulator, item) {
+        {cartItem.cart.length === 0 ? <h1>No items available...</h1>: <h1>SubTotal: {(cartItem.cart.reduce(function(accumulator, item) {
           return accumulator + (item.price * item.qty)
-        }, 0)}</h1>}
+        }, 0)).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })}</h1>}
         {cartItem.cart.map((item) => {
         return (
-          <div className="products" key={item.id}>
+          <div className="cart-products" key={item.id}>
+            <div className="part-1">
             <img src={item.images[0]} alt={item.title}/>
+            <h4 className="qty">{item.qty > 1 ? <AiOutlineMinusSquare className="cart-icon" onClick={() => decreaseItem(item.id)} /> : <AiFillDelete className="cart-icon" onClick={() => decreaseItem(item.id)} />} {item.qty} <AiOutlinePlusSquare className="cart-icon" onClick={() => increaseItem(item.id)}/></h4>
+            </div>
+            <div className="part-2">
             <h4>{item.title}</h4>
+            <h5>{item.description}</h5>
             <div>{item.category}</div>
-            <h4>${item.price * item.qty}</h4>
-            <h4>{item.qty > 1 ? <AiOutlineMinusSquare onClick={() => decreaseItem(item.id)} /> : <AiFillDelete onClick={() => decreaseItem(item.id)} />} {item.qty} <AiOutlinePlusSquare onClick={() => increaseItem(item.id)}/></h4>
+            <h4>{(item.price * item.qty).toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD',
+})}</h4>
+            
             <button type="button"  className="btn button" onClick={() => handleRemove(item.id)}> Remove</button>
+            </div>
             </div>
         )
       })}

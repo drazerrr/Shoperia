@@ -5,6 +5,8 @@ import { addItemDB } from "../store/cart";
 import { useNavigate } from "react-router-dom";
 import {MdOutlineArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md'
 import { Helmet } from "react-helmet";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [product, setProducts] = useState([]);
@@ -24,6 +26,16 @@ const Home = () => {
 
   const handleClick = (e) => {
     dispatch(addItemDB(e));
+    toast.info("Added to cart", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      })
     setId_name(e.id)
     setTimeout(() => {
       setId_name(0)
@@ -75,6 +87,16 @@ const Home = () => {
               )})}
               <span className={page > (totalPages - 14) ? "disabled" : ""}  onClick={() => { setPage(page + 14); window.scrollTo({top: 0, behavior: 'smooth'})}}    ><MdArrowForwardIos /></span>
             </div>
+            <ToastContainer position="top-right"
+  autoClose={2000}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="colored" />
     </div>
   )
 }

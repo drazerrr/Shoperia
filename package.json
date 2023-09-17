@@ -1,6 +1,5 @@
 {
-  "name": "Shoperia",,
-  "Author": "Anurag Dwivedi"
+  "name": "Shoperia",
   "version": "1.0.0",
   "description": "E-Commerce web app Project",
   "main": "index.js",
@@ -12,7 +11,7 @@
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Anurag Dwivedi",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
