@@ -45,15 +45,15 @@ export default userSlice.reducer;
  function userFetch(currentUser) {
     return async function userApi(dispatch, getState) {
         dispatch(remove(true))
+        if(currentUser.password.length < 6) {
+            return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Password length should be 6 letter long'})
+        }
         const user = await axios.post('/api/v1/auth/register', currentUser);
         if(user.data.err) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: user.data.err})
         };
         if(user.data.code && user.data.code === 11000) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Email already Exists'})
-        }
-        if(currentUser.password.length < 6) {
-            return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Password length should be 6 letter long'})
         }
         localStorageData(user.data)
         dispatch(addItemFromDB(user.data.cart));

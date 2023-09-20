@@ -12,14 +12,20 @@ import { add, localStorageDataRemove } from '../store/userSlice'
 import { localStorageCartRemove } from '../store/cart'
 import { useDispatch } from 'react-redux'
 import { LiaCartPlusSolid } from 'react-icons/lia'
+import { changePage } from '../store/products'
 const NavBar = () => {
   const [toggle, setToggle] = useState(true)
   const dispatch = useDispatch();
   const toggleMenu = () => {
     setToggle(!toggle);
   }
+  const reset = () => {
+    dispatch(changePage(0))
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }
 
 const logout = () => {
+  reset();
   localStorageDataRemove();
   localStorageCartRemove();
   dispatch(add({name: "", email: "", location: "", alertText: "", alertMessage: ""}));

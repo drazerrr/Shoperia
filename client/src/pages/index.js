@@ -5,7 +5,8 @@ import Register from './Register'
 import NotFound from './NotFound'
 import Login from './Login'
 import Cart from './Cart'
+import Pagination from './Pagination'
 
 
 
-export {Home, About, Contact, Register, NotFound, Login, Cart}
+export {Home, About, Contact, Register, NotFound, Login, Cart,Pagination }

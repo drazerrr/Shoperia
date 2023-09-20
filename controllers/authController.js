@@ -31,7 +31,7 @@ const register = async (req, res) => {
         if(bcrypt.compareSync(password, logData.password)) {
             return res.json(logData)
         } else {
-            return res.json({err: 'Invalid credential'})
+            return res.json({err: 'Invalid password'})
         }
     } else {
         return res.json({err: 'Invalid credential'});

@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { changePage, fetchApi } from "../store/products";
 import Loading from "../components/Loading";
 
-const Home = () => {
+const Pagination = () => {
   const [id_name, setId_name] = useState(0)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const Home = () => {
   const totalPages = useSelector(state => state.products.totalPages)
   const loading = useSelector(state => state.products.loading)
   const { pageNumber} = useParams();
+
 
   const parentClick = (e, value) => {
     e.stopPropagation();
@@ -52,8 +53,21 @@ const Home = () => {
   }
 
   useEffect(() => {
+    if(pageNumber === '1') {
+        navigate('/')
+    }
+    if(pageNumber && Number.isInteger(parseInt(pageNumber))) {
+        if(pageNumber > 1 && pageNumber <= Math.floor(totalPages / 14) + 1) {
+            dispatch(changePage((pageNumber - 1)* 14))
+        } 
+      } else {
+        navigate('/not-found')
+      }
     dispatch(fetchApi());
-  }, [dispatch, page] );
+    if(pageNumber > Math.floor(totalPages / 14) + 1) {
+        navigate('/not-found')   
+    }
+  }, [dispatch, page, pageNumber, totalPages, navigate] );
   return (
     <div>
       <Helmet>
@@ -102,4 +116,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Pagination
