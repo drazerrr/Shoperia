@@ -1,5 +1,6 @@
-/* for run install all dependencies  for both client and server
-set .env file MONGO_URI=<mongo uri>
+/* for run install all dependencies  for both client and server 
+- npm run install-dependencies
+setup .env file MONGO_URI=<mongo uri>
 
 
 # Create a Navbar 
@@ -151,3 +152,6 @@ after setup backend to front-end cart
 
 # Use Bcrypt for encription password
 -npm install bcrypt --save dev 
+
+# setup pagination 
+use redux toolkit for state management 
