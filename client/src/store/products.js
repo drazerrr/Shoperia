@@ -36,6 +36,7 @@ export function fetchApi() {
     return async function products(dispatch, getState) {
         const page = getState().products.page;
         dispatch(loadingState(true))
+        dispatch(setProducts([]))
         const api = await fetch(`https://dummyjson.com/products?limit=14&skip=${page}`);
         const data = await api.json();
         dispatch(setProducts(data.products));

@@ -48,7 +48,7 @@ const Home = () => {
 
   const onPage = (e) => {
     dispatch(changePage(e))
-    window.scrollTo({top: 0, behavior: 'smooth'})
+    window.scrollTo({top: 0, behavior: 'instant'})
   }
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const Home = () => {
       {product.map((item) => {
         return (
           <div className="products" onClick={(e) => parentClick(e, item.id)}key={item.id}>
-            <img src={item.images[0]} alt={item.title}/>
+            <img src={item.images[0]} alt={item.title} loading="lazy"/>
             <h4>{item.title}</h4>
             <div className="description">{item.description}</div>
             <h4>{(item.price).toLocaleString('en-US', {
@@ -80,13 +80,13 @@ const Home = () => {
       })}
     </div>
     <div className="pagination">
-              <Link className={page === 0 ? "disabled": ""} onClick={() => { onPage(page - 14); window.scrollTo({top: 0, behavior: 'smooth'})}}to={(page -14) === 0 ? "/" : "/page/" + (page / 14)}><MdOutlineArrowBackIosNew /></Link>
+              <Link className={page === 0 ? "disabled": ""} onClick={() => { onPage(page - 14); }}to={(page -14) === 0 ? "/" : "/page/" + (page / 14)}><MdOutlineArrowBackIosNew /></Link>
 
               {[...Array(Math.floor((totalPages ? totalPages : 0) /14) + 1).fill(1)].map((_, i) => {
                 return (
                 <Link to={i === 0 ? "/" : "/page/" + (i + 1)} onClick={() => onPage(i * 14)} className={`page-num ${i === (page/14) ? "page-col" : ""}`} key={i}>{i + 1}</Link>
               )})}
-              <Link className={page > (totalPages - 14) ? "disabled" : ""}  onClick={() => { onPage(page + 14); window.scrollTo({top: 0, behavior: 'smooth'})}}  to={"/page/" + ((page + 28) / 14)}  ><MdArrowForwardIos /></Link>
+              <Link className={page > (totalPages - 14) ? "disabled" : ""}  onClick={() => { onPage(page + 14);}}  to={"/page/" + ((page + 28) / 14)}  ><MdArrowForwardIos /></Link>
             </div>
             <ToastContainer position="top-right"
   autoClose={2000}

@@ -6,3 +6,6 @@
 
 # create homePage 
 Use A FakeStoreApi in homepage
+
+# setup lazy loading for optimizing app
+-import {lazy, Suspense} from 'react'
