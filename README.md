@@ -1,6 +1,6 @@
 /* for run install all dependencies  for both client and server 
 - npm run install-dependencies
-setup .env file MONGO_URI=<mongo uri>
+- setup .env file MONGO_URI=<mongo uri>
 
 
 # Create a Navbar 
