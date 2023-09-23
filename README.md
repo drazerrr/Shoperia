@@ -1,157 +1,60 @@
-/* for run install all dependencies  for both client and server 
-- npm run install-dependencies
-- setup .env file MONGO_URI=<mongo uri>
+# Shoperia E-commerce Web App
 
 
-# Create a Navbar 
+## Overview
 
-/* This Project is not complete yet */
-# Creating Register Page
-/* Not complete yet */
+Shoperia is a full-fledged E-commerce web application built with React.js, Express.js, Node.js, MongoDB, and Redux Toolkit for state management. It offers a seamless shopping experience, allowing users to browse products from various categories.
 
-# create homePage 
-Use A FakeStoreApi in homepage
+## Features
 
-# create register/login page
+- **Category-Based Filtering:** Easily find products by browsing through different categories.(Coming soon)
+- **Responsive Design:** Enjoy a consistent shopping experience across various devices.
+- **Product Details:** View detailed product information, including descriptions and prices.(coming soon)
+- **Shopping Cart:** Add products to your cart for later reference.
+- **User Authentication:** Secure user registration and login.
+- **Password Hashing:** Passwords are securely hashed using bcrypt.
+- **Notifications:** Display notifications using React Toastify.
+- **Database Integration:** Store and manage product data in MongoDB using Mongoose.
+- **Pagination:** Implement pagination to display products in manageable chunks.
+- **Development Server:** Utilize Nodemon for an auto-reloading backend server during development.
 
-# create server /jobify folder
+## Installation
 
-/* setup login and logout user 
+1. Clone the repository: `git clone https://github.com/drazerrr/Shoperia.git`
+2. Navigate to the project directory: `cd shoperia`
+3. Install all dependencies: `npm install-dependencies`
+4. Create a `.env` file in the server directory and set your environment variables.
 
-# setup cart Add Cart/ remove cart
+## Configuration
 
-creating a Cart.js file in page 
+- Configure your environment variables in the `.env` file in the server directory.
+- Provide your MongoDB URI and any other necessary configuration settings.
+PORT=5000
+MONGO_URI=
 
- const Cart = () => {
-    let cartItem = useSelector((state) => state.cart);
-    const dispatch = useDispatch();
-    const handleRemove = (e) => {
-        dispatch(removeItem(e));
-    }
+## Usage
 
-    const increaseItem = (e) => {
-      dispatch(incItem(e))
-    }
-    const decreaseItem = (e) => {
-      dispatch(decItem(e))
-    }
+1. Start : `npm start`
+2. Open a web browser and access the app at `http://localhost:3000`
 
-  return (
-    <div>
-        <NavBar/>
-        {cartItem.cart.length === 0 ? <h1>No items available...</h1>: <h1>SubTotal:</h1>}
-        {cartItem.cart.map((item) => {
-        return (
-          <div className="products">
-            <img src={item.image} alt="product"/>
-            <h4>{item.title}</h4>
-            <h4>${item.price}</h4>
-            <h4>{item.qty > 1 ? <AiOutlineMinusSquare onClick={() => decreaseItem(item.id)} /> : <AiFillDelete onClick={() => decreaseItem(item.id)} />} {item.qty} <AiOutlinePlusSquare onClick={() => increaseItem(item.id)}/></h4>
-            <button type="button"  className="btn" onClick={() => handleRemove(item.id)}> Remove</button>
-            </div>
-        )
-      })}
+## Additional Information
 
-    </div>
-  )
-}
+- User authentication is implemented, allowing users to register and log in.
+- User passwords are securely hashed using bcrypt for added security.
+- The shopping cart feature enables users to add and remove items.
+- State management is handled with Redux Toolkit for a smooth and efficient user experience.
+- Notifications are displayed using React Toastify.
+- Product data is stored in a MongoDB database using Mongoose.
+- Pagination is implemented to ensure efficient loading of product listings.
 
- # also create a reducer for cart
- cart.js in store 
+## Contributing
 
- 
- # SETUP a cartRoutes.js and cartcontroller in backend 
+Contributions are welcome! Feel free to open issues or pull requests to help improve this project.
 
- cartRoutes-
- import express from 'express';
-import { addItem, decQuantity, incQuantity, removeItem } from '../controllers/cartController.js';
+## License
 
-const router = express.Router();
+This project is licensed under the [MIT License](LICENSE).
 
-router.route('/addcart').put(addItem)
-router.route('/removecart').put(removeItem)
-router.route('/increaseqty').put(incQuantity);
-router.route('/decreaseqty').put(decQuantity);
+---
 
-
-export default router
-
-cartController-
-import User from '../modules/User.js';
-
-
-const addItem = async (req, res) => {
-    const {email, item} = req.body;
-    
-    let filter = {email};
-    let insert = {$push: {cart: item}};
-
-    try {
-        const carts = await User.findOne({email, 'cart.id': item.id})
-        if (carts) {
-            const value = await User.findOneAndUpdate({email, 'cart.id': item.id}, {$inc: {"cart.$.qty": 1 }})
-            res.json(value);
-        } else {
-        const value = await User.findOneAndUpdate(filter, insert);
-        res.json(value);
-        }
-
-    } catch (err) {
-        console.log(err)
-        res.json({err:"Something went wrong..."})
-    }
-};
-
-const removeItem = async (req, res) => {
-    const {email, itemId} = req.body;
-    
-    let filter = {email};
-    let remove = {$pull: {cart: {id : itemId }}};
-
-    try {
-        const value = await User.findOneAndUpdate(filter, remove);
-        console.log(value);
-        res.json(value);
-
-    } catch (err) {
-        console.log(err)
-    }
-
-};
-
-
-const incQuantity = async (req, res) => {
-    const {email, itemId} = req.body;
-
-    let filter = {email, 'cart.id': itemId }
-    try {
-        const value = await User.findOneAndUpdate(filter, {$inc : {"cart.$.qty" : 1}});
-        console.log(value);
-        res.json(value);
-
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const decQuantity = async (req, res) => {
-    const {email, itemId} = req.body;
-    let filter = {email, 'cart.id': itemId }
-    try{
-        const dec = await User.findOneAndUpdate(filter, {$inc : {"cart.$.qty" : -1}});
-        res.json(dec)
-        const del = await User.findOneAndUpdate({email}, {$pull: {cart: {id: itemId, qty: 0}}})
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-export {addItem, removeItem, incQuantity, decQuantity}
-
-after setup backend to front-end cart
-
-# Use Bcrypt for encription password
--npm install bcrypt --save dev 
-
-# setup pagination 
-use redux toolkit for state management 
+© 2023 Shoperia. All rights reserved.
