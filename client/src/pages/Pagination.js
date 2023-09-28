@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { changePage, fetchApi } from "../store/products";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 const Pagination = () => {
   const [id_name, setId_name] = useState(0)
@@ -69,7 +70,7 @@ const Pagination = () => {
     }
   }, [dispatch, page, pageNumber, totalPages, navigate] );
   return (
-    <div>
+    <div className="main">
       <Helmet>
                 <meta charSet="utf-8" />
                 <title>{`Home - ${pageNumber ? `page ${pageNumber} of ${Math.floor(totalPages / 14) + 1} - Shoperia E-Commerce Web App`: 'Shoperia E-Commerce Web App'}`}</title>
@@ -102,6 +103,7 @@ const Pagination = () => {
               )})}
               <Link className={page > (totalPages - 14) ? "disabled" : ""}  onClick={() => { onPage(page + 14); }}  to={"/page/" + ((page + 28) / 14)}  ><MdArrowForwardIos /></Link>
             </div>
+            <Footer />
             <ToastContainer position="top-right"
   autoClose={2000}
   hideProgressBar={false}

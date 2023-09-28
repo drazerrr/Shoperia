@@ -33,7 +33,6 @@ const logout = () => {
   const data = useSelector((state) => state.user)
   const cartItem = useSelector((state) => state.cart)
   return (
-    <div>
     <nav className='nav-bar'>
     <Logo />
      <div className='ham' onClick={toggleMenu}><GiHamburgerMenu /></div>
@@ -46,7 +45,6 @@ const logout = () => {
         
         </ul>
     </nav>
-    </div>
   )
 }
 

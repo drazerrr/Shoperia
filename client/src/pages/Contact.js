@@ -1,9 +1,10 @@
 import NavBar from "../components/NavBar"
 import { Helmet } from "react-helmet"
+import Footer from "../components/Footer"
 
 const Contact = () => {
   return (
-    <div>
+    <div className="main">
       <Helmet>
                 <meta charSet="utf-8" />
                 <title>Contact me - Shoperia E-Commerce Web Page</title>
@@ -11,6 +12,7 @@ const Contact = () => {
             </Helmet>
       <NavBar />
       Contact
+      <Footer />
     </div>
   )
 }

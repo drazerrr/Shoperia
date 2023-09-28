@@ -22,8 +22,11 @@ font-family: 'Space Grotesk', sans-serif;
 
   /* NavBar */
 .main {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+
 }
 h1, h2,
 h3, h4,
@@ -43,7 +46,7 @@ h1 {
   width: 100vw;
   height: 60px;
   background-color: #011936;
-  min-width: 375px;
+  min-width: 300px;
 }
 .brand-name {
   font-family: 'Space Grotesk', sans-serif;
@@ -51,6 +54,9 @@ h1 {
   text-decoration: none;
   margin: 10px;
   color: #FFBF00;
+}
+.brand-icon {
+  margin: -3px 0;
 }
 .ham {
   font-size: 32px;
@@ -66,12 +72,17 @@ h1 {
 }
 .link {
   text-decoration: none;
-  margin: 20px;
+  margin: auto 20px;
   color: #fff;
+  padding: 2px;
+}
+.link:hover{
+  border-bottom: 2px solid green;
+  border-radius: 2px;
 }
 .icon {
-  font-size: 18px;
-  margin-top: auto 0;
+  font-size: 22px;
+  margin: -5px 0;
 }
 
 /* Register Page */
@@ -179,8 +190,12 @@ h1 {
   font-size: 20px;
 }
 .back-home {
-  text-decoration: none;
+  text-decoration-color: green;
   color: rgba(109, 73, 39, 0.767);
+}
+.back-home:active {
+  text-decoration-color: red;
+
 }
 
 /* Homepage */
@@ -257,6 +272,13 @@ h1 {
 }
 
 /* Cart */
+
+.cart {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .cart-container {
   width: 100vw;
@@ -393,6 +415,22 @@ h1 {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* footer */
+
+.footer {
+  width: 100vw;
+  min-width: 300px;
+  height: 60px;
+  background-color: rgb(25, 25, 27);
+  margin-top: auto;
+  padding: 20px;
+}
+.footer-text {
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
 }
 
 

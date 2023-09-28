@@ -10,7 +10,7 @@ const Logo = () => {
     window.scrollTo({top: 0, behavior: 'smooth'})
   }
   return (
-    <Link to='/' onClick={reset} className='brand-name'><FaShoppingBag />  Shoperia</Link>
+    <Link to='/' onClick={reset} className='brand-name'><FaShoppingBag className='brand-icon'/>  Shoperia</Link>
   )
 }
 

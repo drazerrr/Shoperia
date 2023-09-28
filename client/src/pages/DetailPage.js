@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import Footer from "../components/Footer";
+
+
 const DetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
@@ -14,12 +17,13 @@ const DetailPage = () => {
     fetchProduct();
   }, [id])
   return (
-    <div>
+    <div className="main">
       {product.map((item, index) => {
         return (
           <div key={index}><img src={item} alt={index}/></div>
         )
       })}
+      <Footer />
     </div>
   )
 }
