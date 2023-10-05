@@ -39,7 +39,7 @@ const Cart = () => {
           <div className="cart-products" key={item.id}>
             <div className="part-1">
             <img src={item.images[0]} alt={item.title} loading="lazy"/>
-            <h4 className="qty">{item.qty > 1 ? <AiOutlineMinusSquare className="cart-icon" onClick={() => decreaseItem(item.id)} /> : <AiFillDelete className="cart-icon" onClick={() => decreaseItem(item.id)} />} {item.qty} <AiOutlinePlusSquare className="cart-icon" onClick={() => increaseItem(item.id)}/></h4>
+            <h4 className="qty">{item.qty > 1 ? <AiOutlineMinusSquare className="cart-icon" onClick={() => decreaseItem(item.id)} /> : <AiFillDelete className="cart-icon" onClick={() => decreaseItem(item.id)} />} <span className="item-qty">{item.qty}</span> <AiOutlinePlusSquare className="cart-icon" onClick={() => increaseItem(item.id)}/></h4>
             </div>
             <div className="part-2">
             <h4>{item.title}</h4>
