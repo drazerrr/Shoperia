@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './db/connection.js';
 import authRouter from './routes/authRoutes.js'
 import cartRouter from './routes/cartRoutes.js'
+import cors from 'cors'
 dotenv.config();
 
 // middlewares
@@ -12,6 +13,7 @@ import errorHandleMiddleware from './middlewares/error-handler.js'
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 
 app.get('/', (req, res) => {

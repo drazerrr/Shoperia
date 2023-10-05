@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addItemFromDB } from "./cart";
 import axios from "axios";
 
+axios.defaults.baseURL = 'http://localhost:5000';
+
 let user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
