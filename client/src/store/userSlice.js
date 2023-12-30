@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addItemFromDB } from "./cart";
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 let user = JSON.parse(localStorage.getItem("user"));
 
@@ -47,8 +47,14 @@ export default userSlice.reducer;
  function userFetch(currentUser) {
     return async function userApi(dispatch, getState) {
         dispatch(remove(true))
+        if(!currentUser.password && !currentUser.email && !currentUser.name) {
+            return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Please provide all values'})
+        }
         if(currentUser.password.length < 6) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Password length should be 6 letter long'})
+        }
+        if(currentUser.name.length < 4) {
+            return clearAction(dispatch, {alertType: 'danger', alertMessage: 'Name length should be 4 letter long'})
         }
         const user = await axios.post('/api/v1/auth/register', currentUser);
         if(user.data.err) {
@@ -70,7 +76,6 @@ function userLogin(currentUser) {
     return async function userApif(dispatch, getState) {
         dispatch(remove(true))
         const user = await axios.post('/api/v1/auth/login', currentUser);
-        console.log(user);
         if(user.data.err) {
             return clearAction(dispatch, {alertType: 'danger', alertMessage: user.data.err})
         };

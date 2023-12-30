@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 let cartItem = JSON.parse(localStorage.getItem("cart"));
-console.log(cartItem)
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -81,10 +80,7 @@ function addItemDB(cartItem) {
             email: userDetail.email,
             item: {...cartItem, qty: 1}
         }
-        const cartSave = await axios.put('/api/v1/cart/addcart', newItem)
-        if(cartSave.err) {
-            console.log(cartSave.err);
-        }
+         await axios.put('/api/v1/cart/addcart', newItem)
     }
 };
 
@@ -96,12 +92,7 @@ function removeItemDB(cartItem) {
             email: userDetail.email,
             itemId: cartItem
         }
-        const cartSave = await axios.put('/api/v1/cart/removecart', newItem)
-        console.log(cartSave)
-        console.log(newItem)
-        if(cartSave.err) {
-            console.log(cartSave.err);
-        }
+         await axios.put('/api/v1/cart/removecart', newItem)
     }
 };
 
@@ -113,12 +104,7 @@ function incItemQtyDB(cartItem) {
             email: userDetail.email,
             itemId: cartItem
         }
-        const cartSave = await axios.put('/api/v1/cart/increaseqty', newItem)
-        console.log(cartSave)
-        console.log(newItem)
-        if(cartSave.err) {
-            console.log(cartSave.err);
-        }
+         await axios.put('/api/v1/cart/increaseqty', newItem)
     }
 };
 
@@ -130,12 +116,7 @@ function decItemDB(cartItem) {
             email: userDetail.email,
             itemId: cartItem
         }
-        const cartSave = await axios.put('/api/v1/cart/decreaseqty', newItem)
-        console.log(cartSave)
-        console.log(newItem)
-        if(cartSave.err) {
-            console.log(cartSave.err);
-        }
+         await axios.put('/api/v1/cart/decreaseqty', newItem)
     }
 }
 

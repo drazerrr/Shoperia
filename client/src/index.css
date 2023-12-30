@@ -24,8 +24,10 @@ font-family: 'Space Grotesk', sans-serif;
 .main {
   display: flex;
   flex-direction: column;
+  max-width: 1200px;
   width: 100vw;
   min-height: 100vh;
+  margin: 0 auto;
 
 }
 h1, h2,
@@ -47,6 +49,7 @@ h1 {
   height: 60px;
   background-color: #011936;
   min-width: 300px;
+  z-index: 10;
 }
 .brand-name {
   font-family: 'Space Grotesk', sans-serif;
@@ -89,10 +92,10 @@ h1 {
 
 .form-container {
   display: grid;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   align-items: center;
   min-width: 375px;
+  margin: auto;
 }
 
 .form {
@@ -201,6 +204,7 @@ h1 {
 /* Homepage */
 
 .product-container {
+  max-width: 1200px;
   width: calc(100vw - 10vw);
   margin: 70px  auto;
   padding-bottom: 10px;
@@ -233,14 +237,14 @@ h1 {
   display: block;
   width: 100px;
   height: 25px;
-  margin: 10px auto;
+  margin: 10px auto 10px;
   padding: 3px;
   background-color: #FFBF00;
   color: white;
   border: none;
   border-radius: 3px;
 }
-.products h4 {
+.products h5 {
   text-align: center;
   padding: 10px;
   font-family: 'Roboto Mono', monospace;
@@ -274,14 +278,14 @@ h1 {
 /* Cart */
 
 .cart {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .cart-container {
-  width: 100vw;
+  width: 100%;
   background-color: azure;
   margin: 60px auto;
   padding: 20px;
@@ -435,6 +439,46 @@ h1 {
   font-size: 10px;
   text-align: center;
 }
+.page {
+  display: flex;
+  flex-direction: column;
+}
 
+
+/* DetailPage */
+
+.detailPage {
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.react-slideshow-container {
+  width: 500px;
+}
+
+.slides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  object-fit: cover;
+  height: 400px;
+}
+
+.detail {
+  min-width: 350px;
+  max-width: 50vw;
+  margin-top: 100px;
+  margin-left: 50px;
+}
+
+.product-img {
+  min-width: 350px;
+  max-width: 50vw;
+  margin-top: 100px;
+}
 
 

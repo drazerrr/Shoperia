@@ -40,7 +40,6 @@ export function fetchApi() {
         const api = await fetch(`https://dummyjson.com/products?limit=14&skip=${page}`);
         const data = await api.json();
         dispatch(setProducts(data.products));
-        console.log(data.total)
         dispatch(totalPages(data.total));
         dispatch(loadingState(false));
 

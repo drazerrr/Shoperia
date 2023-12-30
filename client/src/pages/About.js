@@ -1,6 +1,5 @@
 import NavBar from "../components/NavBar"
 import { Helmet } from "react-helmet"
-import Footer from '../components/Footer'
 
 
 const About = () => {
@@ -13,7 +12,6 @@ const About = () => {
             </Helmet>
       <NavBar />
       About
-      <Footer />
       </div>
   )
 }

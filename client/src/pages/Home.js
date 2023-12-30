@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { changePage, fetchApi } from "../store/products";
 import Loading from "../components/Loading";
-import Footer from '../components/Footer';
 
 const Home = () => {
   const [id_name, setId_name] = useState(0)
@@ -56,7 +55,7 @@ const Home = () => {
     dispatch(fetchApi());
   }, [dispatch, page] );
   return (
-    <div className="main">
+    <div className="page">
       <Helmet>
                 <meta charSet="utf-8" />
                 <title>{`Home - ${pageNumber ? `page ${pageNumber} of ${Math.floor(totalPages / 14) + 1} - Shoperia E-Commerce Web App`: 'Shoperia E-Commerce Web App'}`}</title>
@@ -69,12 +68,12 @@ const Home = () => {
         return (
           <div className="products" onClick={(e) => parentClick(e, item.id)}key={item.id}>
             <img src={item.images[0]} alt={item.title} loading="lazy"/>
-            <h4>{item.title}</h4>
-            <div className="description">{item.description}</div>
-            <h4>{(item.price).toLocaleString('en-US', {
+            <h5>{item.title}</h5>
+            <div className="description">{item.description.length > 150 ? item.description.substring(0, 150) + '...' : item.description}</div>
+            <h5>{(item.price).toLocaleString('en-US', {
   style: 'currency',
   currency: 'USD',
-})}</h4>
+})}</h5>
             <button id={item.id} onClick={(e) => handleClick(e, item)} className={`btn button ${item.id === id_name ? 'click' : ""}`}> Add to Cart</button>
             </div>
         )
@@ -89,7 +88,6 @@ const Home = () => {
               )})}
               <Link className={page > (totalPages - 14) ? "disabled" : ""}  onClick={() => { onPage(page + 14);}}  to={"/page/" + ((page + 28) / 14)}  ><MdArrowForwardIos /></Link>
             </div>
-            <Footer />
             <ToastContainer position="top-right"
   autoClose={2000}
   hideProgressBar={false}

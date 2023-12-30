@@ -1,6 +1,5 @@
 import NavBar from "../components/NavBar"
 import { Helmet } from "react-helmet"
-import Footer from "../components/Footer"
 
 const Contact = () => {
   return (
@@ -12,7 +11,6 @@ const Contact = () => {
             </Helmet>
       <NavBar />
       Contact
-      <Footer />
     </div>
   )
 }

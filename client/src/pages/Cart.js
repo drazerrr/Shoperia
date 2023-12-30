@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeItemDB, incItemQtyDB, decItemDB } from "../store/cart";
 import {AiOutlinePlusSquare, AiOutlineMinusSquare, AiFillDelete} from 'react-icons/ai'
 import { Helmet } from "react-helmet";
-import Footer from "../components/Footer";
 
 const Cart = () => {
     let cartItem = useSelector((state) => state.cart);
@@ -20,7 +19,7 @@ const Cart = () => {
     }
 
   return (
-    <div className="main">
+    <div className="page">
       <Helmet>
                 <meta charSet="utf-8" />
                 <title>Cart - Shoperia E-Commerce Web Page</title>
@@ -56,7 +55,6 @@ const Cart = () => {
         )
       })}
       </div>
-      <Footer />
 
     </div>
   )

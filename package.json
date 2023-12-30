@@ -1,14 +1,13 @@
 {
-    "name": "Shoperia",
+    "name": "Shoperia - E-Commerce",
     "version": "1.0.0",
     "description": "E-Commerce web app Project",
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "install-dependencies": "concurrently \"npm run server-dependencies\" \"npm run client-dependencies\"",
-        "server-dependencies": "npm install --ignore client",
-        "client-dependencies": "npm install --prefix client",
         "test": "echo \"Error: no test specified\" && exit 1",
+        "install-dependencies": "npm run install-client && npm install",
+        "install-client": "cd client && npm install",
         "server": "nodemon server --ignore client",
         "client": "npm start --prefix client",
         "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""

@@ -31,7 +31,6 @@ const removeItem = async (req, res) => {
 
     try {
         const value = await User.findOneAndUpdate(filter, remove);
-        console.log(value);
         res.json(value);
 
     } catch (err) {
@@ -47,7 +46,6 @@ const incQuantity = async (req, res) => {
     let filter = {email, 'cart.id': itemId }
     try {
         const value = await User.findOneAndUpdate(filter, {$inc : {"cart.$.qty" : 1}});
-        console.log(value);
         res.json(value);
 
     } catch (err) {
