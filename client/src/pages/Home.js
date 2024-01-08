@@ -67,9 +67,8 @@ const Home = () => {
       {product.map((item) => {
         return (
           <div className="products" onClick={(e) => parentClick(e, item.id)}key={item.id}>
-            <img src={item.images[0]} alt={item.title} loading="lazy"/>
+            <img src={item.thumbnail} alt={item.title} loading="lazy"/>
             <h5>{item.title}</h5>
-            <div className="description">{item.description.length > 150 ? item.description.substring(0, 150) + '...' : item.description}</div>
             <h5>{(item.price).toLocaleString('en-US', {
   style: 'currency',
   currency: 'USD',

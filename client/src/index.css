@@ -230,7 +230,8 @@ h1 {
 }
 .products img {
   display: block;
-  height: 90px;
+  max-width: 280px;
+  height: 150px;
   margin: 0 auto;
 }
 .products button {
@@ -254,7 +255,7 @@ h1 {
 }
 .products:hover img {
   cursor: pointer;
-  height: 95px;
+  height: 155px;
 }
 .description {
   font-size: 12px;
@@ -460,13 +461,13 @@ h1 {
   align-items: center;
   justify-content: center;
   background-size: cover;
-  object-fit: cover;
-  height: 400px;
+  background-position: center;
+  height: 500px;
 }
 
 .detail {
+  width: 100%;
   min-width: 300px;
-  max-width: 90%;
   margin-top: 100px;
   margin-left: 50px;
 }
@@ -474,9 +475,29 @@ h1 {
 .product-img {
   width: 100%;
   min-width: 300px;
-  max-width: 400px;
   margin-top: 100px;
   margin-left: 20px;
+}
+
+.rating {
+  width: 50px;
+  height: 20px;
+  border-radius: 2px;
+  padding-left: 3px;
+  color: white;
+  margin-top: 10px;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.detail p {
+  margin-top: 10px;
 }
 
 @media (max-width: 992px) {
