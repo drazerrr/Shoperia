@@ -337,7 +337,7 @@ h1 {
 }
 
 .cart-products img {
-  width: clamp(100px, 20vw, 150px);
+  height: 200px;
   margin-bottom: 20px;
 }
 .cart-icon {
@@ -361,6 +361,11 @@ h1 {
     width: 200px;
     
   }
+  .cart-products img {
+    width: clamp(100px, 20vw, 150px);
+    height: auto;
+  }
+
 }
 
 /* pagination */

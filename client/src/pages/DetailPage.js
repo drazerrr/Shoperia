@@ -44,6 +44,7 @@ const DetailPage = () => {
       </div>
       <div className="detail">
         <h1>{det.title}</h1>
+        <div>{`Brand: ${det.brand}`}</div>
         <div className={`rating ${det.rating > 3 ? 'green' : 'red'}`}>{det.rating &&  det.rating.toFixed(1)} <FaStar /></div>
         <p>{det.description}</p>
 
