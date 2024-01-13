@@ -2,13 +2,12 @@ import NavBar from "../components/NavBar"
 import {MdOutlineArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addItemDB } from "../store/cart";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { changePage, fetchApi } from "../store/products";
 import Loading from "../components/Loading";
+import handleClick from "../components/handleClick";
+import Toaster from "../components/Toaster";
 
 const Home = () => {
   const [id_name, setId_name] = useState(0)
@@ -27,24 +26,6 @@ const Home = () => {
   }
 
 
-  const handleClick = (e, value) => {
-    e.stopPropagation();
-    dispatch(addItemDB(value));
-    toast.info("Added to cart", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      })
-    setId_name(value.id)
-    setTimeout(() => {
-      setId_name(0)
-    }, 200)
-  };
 
   const onPage = (e) => {
     dispatch(changePage(e))
@@ -73,7 +54,7 @@ const Home = () => {
   style: 'currency',
   currency: 'USD',
 })}</h5>
-            <button id={item.id} onClick={(e) => handleClick(e, item)} className={`btn button ${item.id === id_name ? 'click' : ""}`}> Add to Cart</button>
+            <button id={item.id} onClick={(e) => handleClick(e, item, dispatch, setId_name)} className={`btn button ${item.id === id_name ? 'click' : ""}`}> Add to Cart</button>
             </div>
         )
       })}
@@ -87,16 +68,7 @@ const Home = () => {
               )})}
               <Link className={page > (totalPages - 14) ? "disabled" : ""}  onClick={() => { onPage(page + 14);}}  to={"/page/" + ((page + 28) / 14)}  ><MdArrowForwardIos /></Link>
             </div>
-            <ToastContainer position="top-right"
-  autoClose={2000}
-  hideProgressBar={false}
-  newestOnTop={false}
-  closeOnClick
-  rtl={false}
-  pauseOnFocusLoss
-  draggable
-  pauseOnHover
-  theme="colored" />
+            <Toaster />
     </div>
   )
 }
